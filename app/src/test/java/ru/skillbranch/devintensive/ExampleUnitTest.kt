@@ -71,7 +71,7 @@ class ExampleUnitTest {
 
     @Test
     fun test_initials() {
-        println("${ Utils.toInitials("jhon", "wick")}")
+        println("${ Utils.toInitials("", "M")}")
     }
 
     @Test
