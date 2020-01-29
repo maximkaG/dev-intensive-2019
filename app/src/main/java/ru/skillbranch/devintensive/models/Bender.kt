@@ -16,6 +16,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         return if(index > 2) {
             question = Question.NAME
             status = Status.NORMAL
+            index = 0
             "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
 
         } else if(!question.checkAnswer(answer)) {
