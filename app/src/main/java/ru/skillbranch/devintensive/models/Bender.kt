@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.models
 
 class Bender(var status: Status = Status.NORMAL, var question: Question = Question.NAME) {
+    var index: Int = 0
 
     fun askQuestion(): String = when(question) {
         Question.NAME -> Question.NAME.question
@@ -12,7 +13,12 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer:String): Pair<String, Triple<Int, Int, Int>> {
-        return if(!question.checkAnswer(answer)) {
+        return if(index > 2) {
+            question = Question.NAME
+            status = Status.NORMAL
+            "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+
+        } else if(!question.checkAnswer(answer)) {
             when(question) {
                 Question.NAME -> "Имя должно начинаться с заглавной буквы\n" +
                         question.question to status.color
@@ -32,10 +38,11 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         }
         else if(question.answers.contains(answer.toLowerCase())) {
             question = question.nextQuestion()
-            "Отлично - это правильный ответ!\n${question.question}" to status.color
+            "Отлично, ты справился\n${question.question}" to status.color
         } else {
             status = status.nextStatus()
-            "Это не правильный ответ!\n${question.question}" to status.color
+            index++
+            "Это неправильный ответ\n${question.question}" to status.color
         }
     }
 
