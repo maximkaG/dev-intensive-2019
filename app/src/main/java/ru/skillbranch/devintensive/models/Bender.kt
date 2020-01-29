@@ -14,7 +14,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     fun listenAnswer(answer:String): Pair<String, Triple<Int, Int, Int>> {
         return if(!question.checkAnswer(answer)) {
             when(question) {
-                Question.NAME -> " Имя должно начинаться с заглавной буквы\n" +
+                Question.NAME -> "Имя должно начинаться с заглавной буквы\n" +
                         question.question to status.color
                 Question.PROFESSION -> "Профессия должна начинаться со строчной буквы\n" +
                         question.question to status.color
